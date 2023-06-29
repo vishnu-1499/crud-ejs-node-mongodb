@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<style> 
+body {
+    background-image: url("https://image.slidesdocs.com/responsive-images/background/black-white-line-creative-business-simple-powerpoint-background_981ec100f9__960_540.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+  }
+</style>
+
+<body>
+<a href="/user"><button type="button" class="btn btn-outline-warning">Add User</button></a>
+   
+<div className='d-flex vh-100 bg-secondary justify-content-center ailgn-items-center'>
+    <div className='w-50 bg-white rounded p-5'>
+    <table class="table text-center">
+        <tr>
+
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Contact</th>
+            
+            <th colspan="2">Action</th>
+        </tr>
+        <% for(let i=0; i< set.length; i++) { %>
+            <tr>
+                <td> <%- set[i]._id%> </td>
+                <td> <%- set[i].name%> </td>
+                <td> <%- set[i].age%> </td>
+                <td> <%- set[i].contact%> </td>
+                <td><a href="/edit/<%- set[i]._id%>"> <button type="button" class="btn btn-outline-success">Update</button></a></td>
+                <td><a><button onclick="confirmDelete('<%- set[i].id%>')" class="btn btn-outline-danger">Delete</button></a></td>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+    <script>
+    
+        function confirmDelete(remove) {
+            $.ajax({
+                url: `http://localhost:3500/delete/${remove}`,
+                type: "POST",
+                dataType: "json",
+                success: function (response){
+                    window.location.reload()
+                }
+            })
+               
+            
+        }
+    </script>
+</div>
+</body>
+</html>
